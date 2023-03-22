@@ -2,7 +2,12 @@ name: workflow_pull_request
 
 on:
   pull_request:
-      branches: [ main ] 
+      branches:
+        - main
+      types:
+        - opened
+        - edited
+        - closed
 
 concurrency: 
     group: '${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}'
