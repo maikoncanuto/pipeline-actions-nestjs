@@ -108,3 +108,40 @@ jobs:
             git push origin v${{ env.VERSION }}
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
+    build-and-push-package:
+      if: ${{ github.event.pull_request.merged == true}}
+      needs: [create-tag]
+      runs-on: ubuntu-latest
+
+      permissions:
+        contents: read
+        packages: write
+
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v3
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18.x'
+
+        - name: Install Dependencies
+          run: npm ci 
+
+        - name: Build Artifact
+          run: npm run build
+          env:
+            NODE_ENV: '18.x'
+
+        - name: Publish Artifact to Github Packages
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18.x'
+            registry-url: 'https://npm.pkg.github.com'
+            scope: '${{ github.repository_owner }}'
+
+        - run: npm publish
+          env:
+            NODE_AUTH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
