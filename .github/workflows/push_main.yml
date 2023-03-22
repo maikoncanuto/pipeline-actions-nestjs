@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
     build-image:
+      environment: development
       runs-on: ubuntu-latest
 
       strategy:
@@ -48,7 +49,7 @@ jobs:
             images: 'ghcr.io/${{ github.repository }}'
             tags: |
               type=ref,event=branch
-              type=semver,pattern={{version}},value=${{ env.VERSION }}-${{ vars.environment }}
+              type=semver,pattern={{version}},value=${{ env.VERSION }}-${{ matrix.environment }}
 
         - name: Build and push Docker image
           uses: docker/build-push-action@v4
