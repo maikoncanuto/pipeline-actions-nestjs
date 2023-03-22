@@ -64,6 +64,8 @@ jobs:
                   npm version patch
               elif [[ "$REF_NAME" == *hotfix* ]]; then
                   npm version patch
+              elif [[ "$REF_NAME" == *refactor* ]]; then
+                  npm version major
               else
                   echo "This branch is not a feature or bugfix or hotfix branch"
               fi
