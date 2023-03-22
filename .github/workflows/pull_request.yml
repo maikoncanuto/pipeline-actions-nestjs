@@ -44,9 +44,9 @@ jobs:
             node-version: '18.x'
 
         - name: Step Configure Git
-            run: |
-              git config --local user.email "actions@github.com"
-              git config --local user.name "GitHub Actions"
+          run: |
+            git config --local user.email "actions@github.com"
+            git config --local user.name "GitHub Actions"
 
         - name: Step Change version
           run: |
