@@ -1,10 +1,17 @@
 {
-  "name": "rest",
+  "name": "@maikoncanuto/rest",
   "version": "0.4.1",
-  "description": "",
+  "description": "API Rest Example",
   "author": "",
-  "private": true,
+  "private": false,
   "license": "UNLICENSED",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "url": "https://github.com/maikoncanuto/pipeline-actions-nestjs.git",
+    "type": "git"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
