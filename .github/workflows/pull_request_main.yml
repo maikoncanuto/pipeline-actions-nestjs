@@ -85,7 +85,7 @@ jobs:
         contents: write
 
       steps:
-        - name: Checkout do Repositório
+        - name: Step Checkout Code
           uses: actions/checkout@v3
 
         - name: Step Configure Git
@@ -119,18 +119,22 @@ jobs:
         packages: write
 
       steps:
-        - name: Checkout Code
+        - name: Step Checkout Code
           uses: actions/checkout@v3
+
+        - name: Step Git pull
+          run: |
+            git pull origin main
 
         - name: Set up Node.js
           uses: actions/setup-node@v3
           with:
             node-version: '18.x'
 
-        - name: Install Dependencies
+        - name: Step Install Dependencies
           run: npm ci 
 
-        - name: Build Artifact
+        - name: Step Build Artifact
           run: npm run build
           env:
             NODE_ENV: '18.x'
