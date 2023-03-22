@@ -1,4 +1,4 @@
-name: workflow_pull_request
+name: workflow_push_main
 
 on:
   push:
