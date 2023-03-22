@@ -68,4 +68,4 @@ jobs:
 
           - name: Step Commit versions
             run: |
-              git push -u origin ${{ github.head_ref }}
+              git push
