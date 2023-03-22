@@ -1,4 +1,4 @@
-name: workflow_pull_request
+name: main@workflow_pull_request
 
 on:
   pull_request:
@@ -73,3 +73,36 @@ jobs:
               git push
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    create-tag:
+      if: ${{ github.event.pull_request.merged == true}}
+      needs: [pull-request-merged]
+      runs-on: ubuntu-latest
+
+      permissions:
+        contents: write
+
+      steps:
+        - name: Checkout do Repositório
+          uses: actions/checkout@v3
+
+        - name: Step Configure Git
+          run: |
+            git config --local user.email "actions@github.com"
+            git config --local user.name "GitHub Actions"
+
+        - name: Step Git pull
+          run: |
+            git pull origin main
+
+        - name: Step Get Package Version
+          run: |
+            export VERSION=$(node -p "require('./package.json').version")
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+        - name: Step Create Tag from code
+          run: |
+            git tag -a v${{ env.VERSION }} -m "Creating a tag for main in the version ${{ env.VERSION }} - ${{github.repository}}-${{github.ref}}-${{github.sha}}"
+            git push origin v${{ env.VERSION }}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
