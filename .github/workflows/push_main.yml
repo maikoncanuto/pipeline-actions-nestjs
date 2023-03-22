@@ -1,4 +1,4 @@
-name: workflow_pull_request
+name: workflow_push_main
 
 on:
   push:
@@ -11,8 +11,6 @@ concurrency:
 
 jobs:
     create-tag:
-      if: ${{ github.event.pull_request.merged == true}}
-      needs: [ pull-request-merged ]
       runs-on: ubuntu-latest
 
       permissions:
