@@ -11,8 +11,6 @@ concurrency:
 
 jobs:
     create-tag:
-      if: ${{ github.event.pull_request.merged == true}}
-      needs: [ pull-request-merged ]
       runs-on: ubuntu-latest
 
       permissions:
